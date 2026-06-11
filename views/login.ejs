@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Management System</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>ATM Login</h1>
+
+        <form action="/login" method="POST">
+
+            <input
+                type="text"
+                name="account_no"
+                placeholder="Enter Account Number"
+                required
+            >
+
+            <input
+                type="password"
+                name="pin"
+                placeholder="Enter PIN"
+                required
+            >
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Transaction History</title>
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h1>📜 Transaction History</h1>
+
+    <table class="history-table">
+
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+
+        <% transactions.forEach(item => { %>
+
+            <tr>
+
+                <td>
+                    <%= item.id %>
+                </td>
+
+                <td>
+                    <%= item.type %>
+                </td>
+
+                <td>
+                    ₹<%= item.amount %>
+                </td>
+
+                <td>
+                    <%= item.created_at %>
+                </td>
+
+            </tr>
+
+        <% }) %>
+
+    </table>
+
+</div>
+
+</body>
+</html>

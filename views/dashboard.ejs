@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATM Dashboard</title>
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h1>🏦 ATM Dashboard</h1>
+
+    <div class="welcome-card">
+        <h2>Welcome, <%= user.name %></h2>
+        <h3>Current Balance</h3>
+        <p>₹ <%= user.balance %></p>
+    </div>
+
+    <div class="action-grid">
+
+        <a href="/deposit" class="atm-btn">
+            Deposit
+        </a>
+
+        <a href="/withdraw" class="atm-btn">
+            Withdraw
+        </a>
+
+        <a href="/transfer" class="atm-btn">
+            Transfer
+        </a>
+
+        <a href="/history" class="atm-btn">
+            History
+        </a>
+
+        <a href="/logout" class="atm-btn">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
