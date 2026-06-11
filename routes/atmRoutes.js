@@ -9,6 +9,8 @@ router.post("/withdraw", atmController.withdraw);
 
 router.get("/history", atmController.history);
 
+router.post("/transfer", atmController.transfer);
+
 router.get("/logout", atmController.logout);
 
-module.exports = router;
+module.exports = router;                    

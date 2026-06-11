@@ -104,3 +104,75 @@ exports.history = (req, res) => {
         }
     );
 };
+exports.transfer = (req, res) => {
+
+    const senderId = req.session.user.id;
+    const { accountNumber, amount } = req.body;
+
+    const transferAmount = Number(amount);
+
+    // Step 1: Find receiver
+    db.query(
+        "SELECT * FROM users WHERE account_no = ?",
+        [accountNumber],
+        (err, result) => {
+
+            if (err) return res.send("Error finding receiver");
+
+            if (result.length === 0) {
+                return res.send("Receiver not found");
+            }
+
+            const receiver = result[0];
+
+            // Step 2: Check sender balance
+            db.query(
+                "SELECT * FROM users WHERE id = ?",
+                [senderId],
+                (err, senderResult) => {
+
+                    const sender = senderResult[0];
+
+                    if (sender.balance < transferAmount) {
+                        return res.send("Insufficient Balance");
+                    }
+
+                    // Step 3: Deduct from sender
+                    db.query(
+                        "UPDATE users SET balance = balance - ? WHERE id = ?",
+                        [transferAmount, senderId]
+                    );
+
+                    // Step 4: Add to receiver
+                    db.query(
+                        "UPDATE users SET balance = balance + ? WHERE id = ?",
+                        [transferAmount, receiver.id]
+                    );
+
+                    // Step 5: Insert transactions (both sides)
+                    db.query(
+                        "INSERT INTO transactions(user_id,type,amount) VALUES(?,?,?)",
+                        [senderId, "Transfer Sent", transferAmount]
+                    );
+
+                    db.query(
+                        "INSERT INTO transactions(user_id,type,amount) VALUES(?,?,?)",
+                        [receiver.id, "Transfer Received", transferAmount]
+                    );
+
+                    // Step 6: Update session
+                    db.query(
+                        "SELECT * FROM users WHERE id = ?",
+                        [senderId],
+                        (err, updatedUser) => {
+
+                            req.session.user = updatedUser[0];
+
+                            res.redirect("/dashboard");
+                        }
+                    );
+                }
+            );
+        }
+    );
+};
